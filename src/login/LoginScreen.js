@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import {
-  TextInput,
-  View,
-  Button
-} from 'react-native';
 import { login } from './LoginService';
+import styled from 'styled-components';
+
+const View = styled.View`
+    position: relative;
+    top: 50%;
+    transform: translate(0, -100px);
+    padding: 0 15%;
+`;
+const Text = styled.Text``
+const TextInput = styled.TextInput``
+const Button = styled.Button``
 
 export default class LoginScreen extends Component {
 	constructor(props) {
@@ -31,7 +37,7 @@ export default class LoginScreen extends Component {
 				<TextInput placeholder='username' onChangeText={this._setUsername}/>
 				<TextInput placeholder='password' onChangeText={this._setPassword}/>
 				<Button title='Login' onPress={() => {
-					login(username, password);
+					login(username, password, this.props.navigation);
 				}}/>
 			</View>
 		);

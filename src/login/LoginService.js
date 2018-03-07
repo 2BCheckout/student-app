@@ -1,15 +1,18 @@
 import axios from 'axios';
 
-export const login = (username, password) => {
+export const login = (username, password, navigation) => {
 	axios
-	.post(`https://1ecc65be.ngrok.io/api/students/login?include=user`, { username, password })
+	.post(`https://b60e91a9.ngrok.io/api/students/login?include=user`, { username, password })
 	.then(response => {
         axios.defaults.headers.common['Authorization'] = response.data.id;
         console.log(response.data);
-        return response.data;
+        navigation.navigate('Home');
+        // return response.data;
+        // return new Promise((resolve) => resolve(response.data));
     })
     .catch((error) => {
     	console.log(error.response.data);
-        return error.response.data;
+        // return error.response.data;
+        // return new Promise((resolve, reject) => reject(error.response.data));
     });
 }
