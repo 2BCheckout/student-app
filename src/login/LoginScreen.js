@@ -29,6 +29,7 @@ export default class LoginScreen extends Component {
 	}
 
 	componentWillMount() {
+		const setDrawerInactive = this.props.screenProps.setDrawerInactive
 		AsyncStorage.multiGet(['@studentStorage:apiUrl','@studentStorage:token'])
 		.then(response => {
 			const [[aKey, apiUrl], [tKey, token]] = response
@@ -37,7 +38,7 @@ export default class LoginScreen extends Component {
 			if (apiUrl)
 				this.setState({apiUrl})
 			if(token){
-				logout(this.state.apiUrl, token, this.props.navigation)
+				logout(this.state.apiUrl, token, this.props.navigation, setDrawerInactive)
 			}
 		})
 		.catch(error => {
@@ -59,6 +60,7 @@ export default class LoginScreen extends Component {
 	}
 
 	_validateInputs = () => {
+		const setDrawerActive = this.props.screenProps.setDrawerActive
         this.setState({error: ''})
         const { username, password, apiUrl} = this.state
         if (!(username.length>0 && password.length>0)) {
@@ -69,7 +71,7 @@ export default class LoginScreen extends Component {
             this.setState({error: 'API URL is an invalid link'})
             return
         }
-        login(username, password, apiUrl, this.props.navigation)
+        login(username, password, apiUrl, this.props.navigation, setDrawerActive)
     }
 
 	render() {
