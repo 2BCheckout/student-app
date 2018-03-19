@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import axios from 'axios'
+import Toaster from '../helpers/FetchToast'
 
 export const login = (username, password, apiUrl, navigation) => {
 	axios
@@ -10,13 +11,42 @@ export const login = (username, password, apiUrl, navigation) => {
             console.log(response.data)
             navigation.navigate('Home')
         }
-        AsyncStorage.setItem('@studentStorage:apiUrl', apiUrl)
-        // return response.data
-        // return new Promise((resolve) => resolve(response.data))
+        AsyncStorage.multiSet([['@studentStorage:apiUrl', apiUrl], ['@studentStorage:token', response.data.id]])
     })
     .catch((error) => {
-    	console.log(error.response.data)
-        // return error.response.data
-        // return new Promise((resolve, reject) => reject(error.response.data))
+    	console.log(error)
+        Toaster('Error', `No se pudo iniciar sesion: ${error.message}`,
+            () => {
+                login(username, password, apiUrl, navigation)
+            })
+    })
+}
+
+export const logout = (apiUrl, token, navigation) => {
+    axios.defaults.headers.common['Authorization'] = token
+    axios
+    .post(`${apiUrl}/students/logout`)
+    .then(response => {
+        if (response.status === 204) {
+            axios.defaults.headers.common['Authorization'] = null
+            AsyncStorage.removeItem('@studentStorage:token')
+        }else{
+            Toaster('Error','No se pudo establecer conexion con el servidor',
+            () => {
+                logout(apiUrl, token, navigate)
+            },
+            () => {
+                navigation.navigate('Home')
+            })
+        }
+    })
+    .catch(error => {
+        Toaster('Error','No se pudo establecer conexion con el servidor',
+        () => {
+            logout(apiUrl, token, navigate)
+        },
+        () => {
+            navigation.navigate('Home')
+        })
     })
 }
