@@ -9,7 +9,7 @@ export const login = (username, password, apiUrl, navigation, drawerAction) => {
         if (response.status === 200 && response.data.id) {
             axios.defaults.headers.common['Authorization'] = response.data.id
             console.log(response.data)
-            navigation.navigate('Home')
+            navigation.navigate('HomeStack')
             drawerAction()
         }
         AsyncStorage.multiSet([['@studentStorage:apiUrl', apiUrl], ['@studentStorage:token', response.data.id]])
@@ -18,7 +18,7 @@ export const login = (username, password, apiUrl, navigation, drawerAction) => {
     	console.log(error)
         Toaster('Error', `No se pudo iniciar sesion: ${error.message}`,
             () => {
-                login(username, password, apiUrl, navigation)
+                login(username, password, apiUrl, navigation, drawerAction)
             })
     })
 }
@@ -35,20 +35,20 @@ export const logout = (apiUrl, token, navigation, drawerAction) => {
         }else{
             Toaster('Error','No se pudo establecer conexion con el servidor',
             () => {
-                logout(apiUrl, token, navigate)
+                logout(apiUrl, token, navigate, drawerAction)
             },
             () => {
-                navigation.navigate('Home')
+                // navigation.navigate('Home')
             })
         }
     })
     .catch(error => {
         Toaster('Error','No se pudo establecer conexion con el servidor',
         () => {
-            logout(apiUrl, token, navigate)
+            logout(apiUrl, token, navigate, drawerAction)
         },
         () => {
-            navigation.navigate('Home')
+            // navigation.navigate('Home')
         })
     })
 }

@@ -5,7 +5,7 @@ import DrawerNavigator from './DrawerNavigator'
 
 const stackNavigator = StackNavigator({
     Login: { screen: LoginScreen },
-    Home: { screen: DrawerNavigator },
+    HomeStack: { screen: DrawerNavigator },
 }, {
     headerMode: 'none',
     initialRouteName: 'Login'
