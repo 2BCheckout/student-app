@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import StackNavigator from './src/home/HomeScreen';
+import StackNavigator from './src/navigation/StackNavigator';
 import styled from 'styled-components';
 const View = styled.View`
     background: #fff;
