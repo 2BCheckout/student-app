@@ -58,7 +58,6 @@ export default class HomeScreen extends Component {
                 this.map.fitToElements(true);
               }} showUserLocation={true}>
               <Marker coordinate={position} title="Bus Unitec" desciption="Eureka"/>
-              <Marker coordinate={{latitude: 37.707433, longitude: -101.926996}} title="Bus Unitec" desciption="Eureka"/>
             </MapView>
           </View>
         );

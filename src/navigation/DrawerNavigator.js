@@ -7,13 +7,13 @@ import LoginScreen from '../login/LoginScreen';
 
 const drawerNavigator = DrawerNavigator({
 	Home: { screen: HomeScreen },
-	AwaitRequest: { screen: AwaitRequestScreen },
+	// AwaitRequest: { screen: AwaitRequestScreen },
 	SelectRoute: { screen: SelectRouteScreen },
 	MapView: { screen: MapViewScreen },
 	Logout: { screen: LoginScreen }
 }, {
     headerMode: 'none',
-    initialRouteName: 'Home',
+    initialRouteName: 'SelectRoute',
 });
 
 export default drawerNavigator
